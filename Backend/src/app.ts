@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 import authRoutes from "./routes/auth.routes";
+import leadRoutes from "./routes/lead.routes"
 import {notFound, errorHandler} from "./middlewares/error.middleware"
 
 const app = express();
@@ -25,6 +26,7 @@ app.get("/", (req,res)=>{
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/leads", leadRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
