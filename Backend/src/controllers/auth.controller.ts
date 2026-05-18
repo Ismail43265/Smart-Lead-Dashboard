@@ -94,8 +94,18 @@ export const getMe =async (req: Request, res: Response): Promise<void>=>{
 };
 
 export const logout = async (req: Request, res: Response): Promise<void> => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: false,
+    sameSite: "lax",
+    path: "/",
+  });
+
   res.cookie("token", "", {
     httpOnly: true,
+    secure: false,
+    sameSite: "lax",
+    path: "/",
     expires: new Date(0),
   });
 

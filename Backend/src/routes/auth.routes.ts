@@ -8,7 +8,7 @@ router.post("/signup", signup);
 router.post("/login", login);
 
 router.get("/me",protect, getMe);
-router.get("/logout", protect, logout)
+router.post("/logout", logout)
 
 router.get("/admin-check", protect, adminOnly, (req,res)=>{
     res.status(200).json({

@@ -11,28 +11,25 @@ export const sendToken = (
   const secret = process.env.JWT_SECRET;
 
   if (!secret) {
-    throw new Error("JWT_SECRET is missing in .env file");
+    throw new Error("JWT_SECRET is missing");
   }
-
-  const expiresIn = process.env.JWT_EXPIRES_IN || "7d";
-
-  const options: SignOptions = {
-    expiresIn: expiresIn as SignOptions["expiresIn"],
-  };
 
   const token = jwt.sign(
     {
-      id: user._id.toString(),
+      id: user._id,
       role: user.role,
     },
     secret,
-    options
+    {
+      expiresIn: "7d",
+    }
   );
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: false,
+    sameSite: "lax",
+    path: "/",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 

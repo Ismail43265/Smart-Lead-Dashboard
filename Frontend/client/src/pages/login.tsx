@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import {Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -8,7 +8,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -17,12 +17,13 @@ const Login = () => {
         {
           email,
           password,
+        },
+        {
+          withCredentials: true,
         }
       );
 
       console.log(res.data);
-
-      localStorage.setItem("token", res.data.token);
 
       navigate("/dashboard");
     } catch (error) {
@@ -70,9 +71,13 @@ const Login = () => {
             </button>
           </div>
         </form>
+
         <p className="mt-4 text-center text-sm text-gray-700">
           Don't have an account?{" "}
-          <Link to="/signup" className="font-semibold text-blue-600 hover:underline">
+          <Link
+            to="/signup"
+            className="font-semibold text-blue-600 hover:underline"
+          >
             Sign up
           </Link>
         </p>
